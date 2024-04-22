@@ -28,7 +28,11 @@ public class GetTableOfLeader : MonoBehaviour
 
     public void TableLeader()
     {
-        for(int i = 0; i<5;i++)
+        for (int i = 0; i < 5; i++)
+        {
+                TOP5[i].text = "";
+        }
+        for (int i = 0; i<5;i++)
         {
             if (PlayerPrefs.GetInt("Score" + i) != 0)
             {

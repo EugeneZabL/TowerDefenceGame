@@ -7,6 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class Main_hp : MonoBehaviour
 {
+    public class LeaderBourd
+    {
+        public string playerName;
+        public int score;
+    }
+
+
     private int hp = 20;
     private int Score = 0;
     [SerializeField] GameObject DefeatMenu;
@@ -66,58 +73,26 @@ public class Main_hp : MonoBehaviour
 
     public void WriteResult()
     {
-        if (PlayerPrefs.GetInt("Score1") == 0)
+        LeaderBourd[] t = new LeaderBourd[5];
+        for(int i = 0; i < 5; i++)
         {
-            PlayerPrefs.SetString("Name1", SystemInfo.deviceName);
-            PlayerPrefs.SetInt("Score1", Score);
+            t[i] = new LeaderBourd();
+            t[i].playerName = PlayerPrefs.GetString("Name"+i);
+            t[i].score = PlayerPrefs.GetInt("Score"+i);
         }
-        else if (PlayerPrefs.GetInt("Score2") == 0)
+
+        Array.Resize(ref t, 6);
+
+        t[5] = new LeaderBourd();
+        t[5].playerName = SystemInfo.deviceName;
+        t[5].score = Score;
+
+        Array.Sort(t, (x, y) => y.score.CompareTo(x.score));
+
+        for(int i = 0; i < 5; i++)
         {
-            PlayerPrefs.SetString("Name2", SystemInfo.deviceName);
-            PlayerPrefs.SetInt("Score2", Score);
-        }
-        else if (PlayerPrefs.GetInt("Score3") == 0)
-        {
-            PlayerPrefs.SetString("Name3", SystemInfo.deviceName);
-            PlayerPrefs.SetInt("Score3", Score);
-        }
-        else if (PlayerPrefs.GetInt("Score4") == 0)
-        {
-            PlayerPrefs.SetString("Name4", SystemInfo.deviceName);
-            PlayerPrefs.SetInt("Score4", Score);
-        }
-        else if (PlayerPrefs.GetInt("Score5") == 0)
-        {
-            PlayerPrefs.SetString("Name5", SystemInfo.deviceName);
-            PlayerPrefs.SetInt("Score5", Score);
-        }
-        else
-        {
-            if (PlayerPrefs.GetInt("Score1") < Score)
-            {
-                PlayerPrefs.SetString("Name1", SystemInfo.deviceName);
-                PlayerPrefs.SetInt("Score1", Score);
-            }
-            else if (PlayerPrefs.GetInt("Score2") < Score)
-            {
-                PlayerPrefs.SetString("Name2", SystemInfo.deviceName);
-                PlayerPrefs.SetInt("Score2", Score);
-            }
-            else if (PlayerPrefs.GetInt("Score3") < Score)
-            {
-                PlayerPrefs.SetString("Name3", SystemInfo.deviceName);
-                PlayerPrefs.SetInt("Score3", Score);
-            }
-            else if (PlayerPrefs.GetInt("Score4") < Score)
-            {
-                PlayerPrefs.SetString("Name4", SystemInfo.deviceName);
-                PlayerPrefs.SetInt("Score4", Score);
-            }
-            else if (PlayerPrefs.GetInt("Score5") < Score)
-            {
-                PlayerPrefs.SetString("Name5", SystemInfo.deviceName);
-                PlayerPrefs.SetInt("Score5", Score);
-            }
+            PlayerPrefs.SetString("Name" + i, t[i].playerName);
+            PlayerPrefs.SetInt("Score" + i, t[i].score);
         }
 
         PlayerPrefs.Save();

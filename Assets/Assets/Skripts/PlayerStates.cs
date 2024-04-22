@@ -121,7 +121,7 @@ public class PlayerStates : MonoBehaviour
                     MessegeShow.GetComponent<ShowMassage>().ShowMessage("New Level is " + (level+1f));
                 }
                 else
-                    MessegeShow.GetComponent<ShowMassage>().ShowMessage("No Money. Need - " + level);
+                    MessegeShow.GetComponent<ShowMassage>().ShowMessage("No Money. Need " + level);
             }
         }
     }

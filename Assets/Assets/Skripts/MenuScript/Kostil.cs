@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Kostil : MonoBehaviour
 {
+    [SerializeField] GameObject king;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,14 @@ public class Kostil : MonoBehaviour
         {
             SceneManager.LoadScene("MainMenu");
             Cursor.lockState = CursorLockMode.Confined;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            king.GetComponent<Main_hp>().minusHP();
+        }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStates>().money = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStates>().money + 50;
         }
     }
 }
